@@ -27,16 +27,17 @@ const scroll = (list, duration) => {
     const { data: src } = item
     Object.assign(item, { src })
 
-    // 输出 item load time
-    if (!duration) { return }
-
     // 设置 item start
     const property = { start: new Date().valueOf() }
     Object.assign(state, { [`img-${index}`]: property })
 
+    // 输出 item load time
+    if (!duration) { return }
+
     // 计算 item load time
     item.onload = () => {
       const end = new Date().valueOf()
+      Object.assign(state[`img-${index}`], { end })
       const { start } = state[`img-${index}`]
       console.log(`img-${index} 的加载时间是 ${end - start} ms`)
     }
